@@ -4,7 +4,7 @@
 <html lang="en" style="height:100%;">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Login</title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1">  <!-- viewport="device screen"  width=device screen width scale =100% -->
     <!-- Available on getbootstrap CND   -->
@@ -30,14 +30,17 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-12" style="text-align: center;">
-            <h1 style="color: #009382; width: 600px; display: block;  margin: auto; margin-top:80px; background: #fff;" >Assignment Portal</h1>
+            <h1 style="color: #009382; width: 600px; display: block;  margin: auto; margin-top:80px; " >Assignment Portal</h1>
             <div class="col-md-4 col-md-push-4 form-div " style="display:block; margin-top: 20px;">
             <form action="{% url 'assignment_dashboard:index_login' %}" method="POST">
-                    {% csrf_token %}
-                    {% form form=form %}{% endform %}
-                    <button type="submit" name="submit" class="btn" style="display:block; margin:auto;">Login</button>
+                {% csrf_token %}
+                {% for m in messages %}
+                    <h6 class="text-danger">{{ m }}</h6>
+                {% endfor %}
+                {% form form=form %}{% endform %}
+                <button type="submit" name="submit" class="btn" style="display:block; margin:auto; float:right;">Login</button>
             </form>
-                <a href="{% url 'assignment_dashboard:forgot' %}" style="float:left; margin-top:20px;">Forgot Password?</a>
+                <!--<a href="" style="float:left; margin-top:20px;">Forgot Password?</a>-->
             </div>
         </div>
     </div>
