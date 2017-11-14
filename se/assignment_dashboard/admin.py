@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import User
+from .models import Users
 from .models import Student
 from .models import Faculty
 from .models import Course
@@ -14,7 +14,7 @@ from .models import Solution
 
 # Register your models here.
 
-admin.site.register(User)
+admin.site.register(Users)
 admin.site.register(Student)
 admin.site.register(Faculty)
 admin.site.register(Course)

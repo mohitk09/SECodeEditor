@@ -50,7 +50,7 @@ margin-left: 0;
               <ul class="nav navbar-nav navbar-right" style="display: inline-block;">
                 <li style="margin-right:2px;"><button class="btn btn-nav-dash">Analytics</button></li>
                 <li style="margin-right:2px;"><button class="btn btn-nav-dash">Leader Board</button></li>
-                <li style="margin-right:2px;"><button class="btn btn-nav-dash">Log Out</button></li>
+                <li style="margin-right:2px;"><button class="btn btn-nav-dash" onclick="location.href='/dashboard/logout.html'">Log Out</button></li>
               </ul>
           </div>
           <div>
@@ -70,8 +70,8 @@ margin-left: 0;
 
               <li style="color: aliceblue;">Name: {{ student_data.Name }}</li>
               <li style="color: aliceblue;">Email Id: {{ student_data.Email_id }}</li>
-              <li style="color: aliceblue;">Section: {{ section.SectionId.SectionId }}</li>
-              <li style="color: aliceblue;">Log Out</li>
+              <li style="color: aliceblue;">Section: {{ section.Section }}</li>
+              <li style="color: aliceblue;" onclick="location.href='/dashboard/logout.html'">Log Out</li>
 
           </ul>
       </div>
@@ -88,10 +88,10 @@ margin-left: 0;
                     <div id="nsub" class="card3 card2 container-fluid">
 
                         {% if problem_nsub|length == 0 %}
-                        <h5>There are no Non Submitted problems.</h5>
+                        <h5 style="overflow: visible;" >There are no Non Submitted problems.</h5>
                         {% endif %}
                       {% for problem in problem_nsub %}
-                      <div class="card card1" style="display:block; margin: auto; margin-top:10px; border: 1px solid #00BCD4; overflow: hidden;" onclick="details(this);">
+                      <div class="card card1" style="display:block; margin: auto; margin-top:10px; border: 1px solid #00BCD4; overflow: visible; " onclick="details(this);">
                         <button class="btn btn-solve" style="float: right; margin: 30px 48px 0px 0px;">Solve</button>
                         <h2 style="color:#00BCD4; margin-left:24px; display:flex-inline;">{{ problem.Name }}</h2>
                         <h6 style="color:#00BCD4; margin-left:24px;"><i>Submission Date: {{ problem.endDate }} 00:00</i></h6>
@@ -134,7 +134,7 @@ margin-left: 0;
                     </div>
                     <div id="sub" class="card3 card2 container-fluid">
                         {% if problem_sub|length == 0 %}
-                        <h5>There are no Submitted problems.</h5>
+                        <h5 style="overflow: visible;" >There are no Submitted problems.</h5>
                         {% endif %}
                         {% for problem,s in problem_sub_sol %}
 

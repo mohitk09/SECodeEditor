@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Dashboard</title>
+    <title>Problems</title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1">  <!-- viewport="device screen"  width=device screen width scale =100% -->
     <!-- Available on getbootstrap CND   -->
@@ -19,7 +19,7 @@
     integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE="
     crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="{% static 'css/faculty_dashboard_style.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/problem_f_style.css' %}" type="text/css">
 
 </head>
 <body style="background-color: rgb(245,248,250);">
@@ -38,7 +38,7 @@ margin-left: 0;
                   <span class="icon-bar" style="background-color:rgb(103,58,183);"></span>
                   <span class="icon-bar" style="background-color:rgb(103,58,183);"></span>
               </button>
-              <a href="#" class="navbar-brand" style="color: rgb(103,58,183);">Assignment Dashboard</a>
+              <a href="{{ '../../faculty/index.html' }}" class="navbar-brand" style="color: rgb(103,58,183);">Assignment Dashboard</a>
               <button class="btn btn-sm navbar-btn" id="menu-toggle" style="background: rgb(255,255,255);">
                 <span class="glyphicon glyphicon-menu-hamburger" style="color: rgb(103,58,183); font-size:18px"></span>
               </button>
@@ -77,11 +77,6 @@ margin-left: 0;
       </div>
 
       <!--  Main Content  -->
-      {% if messages %}
-      {% for m in messages %}
-      <div class="alert alert-{{ m.tags }}"><a style="overflow: visible;" href="#" class="close" data-dismiss="alert" aria-label="close">&times</a>{{ m }}</div>
-      {% endfor %}
-      {% endif %}
 
 
       <div id="page-content-wrapper">
@@ -89,46 +84,46 @@ margin-left: 0;
               <div class="row">
                   <div class="col-md-12">
 
-                      <div class="card card2" style="height:80px;">
-                          <button class="btn btn-solve" style="float: right; margin: 23px 48px 0px 0px;" onclick="location.href='/dashboard/faculty/add_problem/index.html'">Add</button>
-                      <h1 style="display: block; margin:auto; margin-left: 24px; margin-top: 24px; color: rgb(103,58,183);">Add Problem</h1>
-                    </div>
+                    <div id="problems" class="card2">
+                      <h1 style="display: block; margin:auto; margin-left: 24px; margin-top: 24px; color: rgb(103,58,183); overflow: hidden; margin-bottom:10px;">Problems</h1>
 
-                    <div id="courses" class="card2">
-                      <h1 style="display: block; margin:auto; margin-left: 24px; margin-top: 24px; color: rgb(103,58,183); overflow: hidden;">Courses</h1>
-
-                        {% if course_section|length == 0 %}
-                        <h5>No courses have been allocated to you.</h5>
+                        {% if problems_added|length == 0 %}
+                        <h5>You have not added any problems yet</h5>
                         {% endif %}
-                        {% for course,sections in course_section.items %}
+                        {% for problem in problems_added %}
 
-                        <div id="course" class="card3 card2 container-fluid" onclick="details(this);" style="display:block; margin:auto; margin-bottom:10px; overflow:visible; min-height: 100px;" >
-                            <h2 style="color:#00BCD4; display:block; overflow: visible; vertical-align: middle; margin:auto; margin-left:24px; margin-top:30px; ">{{ course.Name }}</h2>
-                            <div style="display:none;" >
-                                {% for section in sections %}
-                                <div class="card card1" style="display:block; margin: auto; margin-top:10px; margin-bottom:20px; height:80px; border: 1px solid #00BCD4; overflow: hidden;">
-                                    <h2 style="color:#00BCD4; margin-left:24px; display:flex-inline;">{{ section.SectionId }}</h2>
-                                </div>
-                                {% endfor %}
-                            </div>
+                        <div id="problem" class="card1 card2 container-fluid" onclick="details(this);" style="display:block; margin:auto; margin-bottom:10px; overflow:visible; min-height: 100px;" >
+                            <h1 style="color:#00BCD4; display:block; overflow: visible; vertical-align: middle; margin:auto; margin-left:24px; margin-top:10px;">{{ problem.Name }}</h1>
+                            <h5 style="color:#00BCD4; display:inline-block; overflow: visible; vertical-align: middle; margin:auto; margin-left:24px; margin-top:10px; ">Start Date: {{ problem.startDate }}</h5>
+                            <h5 style="color:#00BCD4; display:inline-block; overflow: visible; vertical-align: middle; margin:auto; margin-left:24px; float:right; margin-top:10px;">End Date: {{ problem.endDate }}</h5><br>
+                            <h5 style="color:#00BCD4; display:inline-block; overflow: visible; vertical-align: middle; margin:auto; margin-left:24px; margin-top:10px;">Start Time: {{ problem.startTime }}</h5>
+                            <h5 style="color:#00BCD4; display:inline-block; overflow: visible; vertical-align: middle; margin:auto; margin-left:24px; float:right; margin-top:10px;">End Time: {{ problem.endTime }}</h5><br>
+                            <h5 style="color:#00BCD4; display:inline-block; overflow: visible; vertical-align: middle; margin:auto; margin-left:24px; margin-top:10px;">Section: {{ problem.Section }}</h5>
+                            <h5 style="color:#00BCD4; display:inline-block; overflow: visible; vertical-align: middle; margin:auto; margin-left:24px; float:right; margin-top:10px;">Course: {{ problem.Course }}</h5><br>
+                            <h5 style="color:#00BCD4; display:inline-block; overflow: visible; vertical-align: middle; margin:auto; margin-left:24px; margin-top:10px;">Max Attempts: {{ problem.maxAttempts }}</h5>
+                            <h5 style="color:#00BCD4; display:inline-block; overflow: visible; vertical-align: middle; margin:auto; margin-left:24px; margin-top:10px; float: right;">Max Marks: {{ problem.maxMarks }}</h5><br>
+                            <h5 style="color:#00BCD4; display:inline-block; overflow: visible; vertical-align: middle; margin:auto; margin-left:24px; margin-top:10px;">Faculty: {{ problem.Faculty }}</h5>
+                            <h5 style="color:#00BCD4; display:inline-block; overflow: visible; vertical-align: middle; margin:auto; margin-left:24px; float:right; margin-top:10px;">Test case file:{{ problem.test_case_file }}</h5><br>
+                            <div style="border: 1px solid #00BCD4; border-radius:2px; margin-left:19px;  margin-top:10px; margin-bottom:10px; padding: 5px;" ><h5 style="color:#00BCD4; display:inline-block; overflow: visible; vertical-align: middle; margin:auto;">Problem Statement:<br> {{ problem.ProblemStatement }} </h5></div>
                         </div>
                         {% endfor %}
-
                         <div style="padding-top:-10px; :margin:10px; text-align:center;">
-                            <button class="pager">First</button>
-                            <button class="pager">Prev</button>
-                            <button class="pager">1</button>
-                            <button class="pager">2</button>
-                            <button class="pager">Next</button>
-                            <button class="pager">Last</button>
-                        </div>
+                        <button class="pager">First</button>
+                        <button class="pager">Prev</button>
+                        <button class="pager">1</button>
+                        <button class="pager">2</button>
+                        <button class="pager">Next</button>
+                        <button class="pager">Last</button>
+                    </div>
                     </div>
 
+
+
                   </div>
+
               </div>
           </div>
       </div>
-
   </div>
 
   <script>
@@ -137,32 +132,7 @@ margin-left: 0;
          e.preventDefault();
           $("#wrapper").toggleClass("menuDisplayed");
       });
-
-      function resizeElementHeight()
-      {
-        document.getElementById("nsub").style.height = {{ problems|length }}*100 + 60 +"px";
-        document.getElementById("sub").style.height = {{ problems|length }}*100 + 60 +"px";
-      }
-      function details(element)
-      {
-        if(element.childNodes[3].style.display == "none")
-        {
-          element.childNodes[3].style.display = "block";
-        }
-        else{
-          element.childNodes[3].style.display = "none";
-        }
-
-      }
-      // resizeElementHeight();
       </script>
-
-
-<!-- for writing python code
-{% for album in allalbum %}
-//do something
-{% endfor %}
--->
 
 </body>
 </html>

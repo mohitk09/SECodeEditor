@@ -48,7 +48,7 @@ margin-left: 0;
                   <span class="icon-bar" style="background-color:rgb(103,58,183);"></span>
                   <span class="icon-bar" style="background-color:rgb(103,58,183);"></span>
               </button>
-              <a href="#" class="navbar-brand" style="color: rgb(103,58,183);">Assignment Dashboard</a>
+              <a href="{{ '../../faculty/index.html' }}" class="navbar-brand" style="color: rgb(103,58,183);">Assignment Dashboard</a>
               <button class="btn btn-sm navbar-btn" id="menu-toggle" style="background: rgb(255,255,255);">
                 <span class="glyphicon glyphicon-menu-hamburger" style="color: rgb(103,58,183); font-size:18px"></span>
               </button>
@@ -60,7 +60,7 @@ margin-left: 0;
               <ul class="nav navbar-nav navbar-right" style="display: inline-block;">
                 <li style="margin-right:2px;"><button class="btn btn-nav-dash">Analytics</button></li>
                 <li style="margin-right:2px;"><button class="btn btn-nav-dash">Leader Board</button></li>
-                <li style="margin-right:2px;"><button class="btn btn-nav-dash">Log Out</button></li>
+                <li style="margin-right:2px;"><button class="btn btn-nav-dash" onclick="location.href='/dashboard/logout.html'" >Log Out</button></li>
               </ul>
           </div>
           <div>
@@ -80,7 +80,8 @@ margin-left: 0;
 
               <li style="color: aliceblue;">Name: {{ faculty_data.Name }}</li>
               <li style="color: aliceblue;">Email Id: {{ faculty_data.Email_id }}</li>
-              <li style="color: aliceblue;">Log Out</li>
+              <li style="color: aliceblue;" onclick="location.href='/dashboard/faculty/problems/index.html'">Problems</li>
+              <li style="color: aliceblue;" onclick="location.href='/dashboard/logout.html'" >Log Out</li>
 
           </ul>
       </div>
@@ -93,16 +94,28 @@ margin-left: 0;
                   <div class="col-md-12">
 
                       <div class="add card2" style="overflow: auto; display: block; margin:auto;">
-                      <h1 style="overflow: visible; display: block; margin:auto; margin-left: 24px; margin-top: 24px; color: rgb(103,58,183);">Add Problem</h1>
+                          <button style="background: #fff; border:0px; color: rgb(103,58,183); display:inline;" onclick="location.href='/dashboard/faculty/index.html'" ><img src="{% static 'css/back.png' %}" /></button>
+                      <h1 style="overflow: visible; display: inline-block; margin:auto; margin-left: 24px; margin-top: 24px; color: rgb(103,58,183);">Add Problem</h1>
                           <form action="{% url 'assignment_dashboard:index_problem' %}" method="post" enctype="multipart/form-data" >
                               {% csrf_token %}
                               {{ form.errors }}
                               {{ form.non_field_errors }}
 
+                              {% if messages %}
+                              {% for m in messages %}
+                              {% if "Please" in m|stringformat:"s" %}
+                              <div class="alert alert-danger"><a style="overflow: visible;" href="#" class="close" data-dismiss="alert" aria-label="close">&times</a>{{ m }}</div>
+                              {% endif %}
+                              {% endfor %}
+                              {% endif %}
+
+
+
+
                           <main class="mdl-layout__content" style="display:block;">
                               <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" style="width:100%;">
                                   <input class="mdl-textfield__input" id="problem_name" name="problem_name"/>
-                                  <label class="mdl-textfield__label" for="problem_name">Problem Name</label>
+                                  <label class="mdl-textfield__label" for="problem_name"  >Problem Name</label>
                               </div>
                           </main>
                           <div class="mdl-selectfield mdl-js-selectfield mdl-selectfield--floating-label" style="overflow: visible; margin-left:24px;">
@@ -126,15 +139,42 @@ margin-left: 0;
                           <br>
                           <main class="mdl-layout__content" >
                               <div class="mdl-textfield">
+                                  <label for="start_date" style="overflow: visible; font-size:12px; color:#3F51B5" >Start Date</label>
+                                  <input class="mdl-textfield__input date_time_input" id="start_date" name="start_date" type="date" />
+                                  {% for m in messages %}
+                                  {% if m|stringformat:"s" == "Start date should be greater than current date." %}
+                                  <h6 class="text-danger">{{ m }}</h6>
+                                  {% endif %}
+                                  {% endfor %}
+                              </div>
+                          </main>
+                          <main class="mdl-layout__content" style="float: right;">
+                              <div class="mdl-textfield">
+                                  <label for="end_date" style="overflow: visible; font-size:12px; color:#3F51B5">End Date</label>
+                                  <input class="mdl-textfield__input date_time_input" id="end_date" name="end_date" type="date"/>
+                                  {% for m in messages %}
+                                  {% if m|stringformat:"s" == "End date should be greater than current and start date."%}
+                                  <h6 class="text-danger">{{ m }}</h6>
+                                  {% endif %}
+                                  {% endfor %}
+                              </div>
+                          </main>
+                              <br>
+                          <main class="mdl-layout__content" >
+                              <div class="mdl-textfield">
                                   <label for="start_time" style="overflow: visible; font-size:12px; color:#3F51B5" >Start Time</label>
-                                  <input class="mdl-textfield__input date_time_input" id="start_time" name="start_time" type="date" />
-
+                                  <input class="mdl-textfield__input date_time_input" id="start_time" name="start_time" type="time" />
                               </div>
                           </main>
                           <main class="mdl-layout__content" style="float: right;">
                               <div class="mdl-textfield">
                                   <label for="end_time" style="overflow: visible; font-size:12px; color:#3F51B5">End Time</label>
-                                  <input class="mdl-textfield__input date_time_input" id="end_time" name="end_time" type="date"/>
+                                  <input class="mdl-textfield__input date_time_input" id="end_time" name="end_time" type="time"/>
+                                  {% for m in messages %}
+                                  {% if m|stringformat:"s" == "End time should be greater than start time."%}
+                                  <h6 class="text-danger">{{ m }}</h6>
+                                  {% endif %}
+                                  {% endfor %}
                               </div>
                           </main>
                           <main class="mdl-layout__content" >
