@@ -1,0 +1,200 @@
+<html>
+<head> 
+    <meta name="viewport" content="width=device-width, initial-scale=1">  <!-- viewport="device screen"  width=device screen width scale =100% -->
+    <!-- Available on getbootstrap CND   -->
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+    <!-- Latest compiled and minified JavaScript -->
+
+    <link rel="stylesheet" href="https://storage.googleapis.com/code.getmdl.io/1.0.6/material.indigo-pink.min.css">
+    <link rel="stylesheet" href="https://cdn.rawgit.com/kybarg/mdl-selectfield/mdl-menu-implementation/mdl-selectfield.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
+      <script
+    src="https://code.jquery.com/jquery-3.2.1.js"
+    integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE="
+    crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+    <script src="https://storage.googleapis.com/code.getmdl.io/1.0.6/material.min.js"></script>
+
+    <script src="https://cdn.rawgit.com/kybarg/mdl-selectfield/mdl-menu-implementation/mdl-selectfield.min.js"></script>
+
+
+    <link rel="stylesheet" href="nav_bar_template_style.css" type="text/css">
+</head>
+<body style="background-color: #efebe9">
+
+  <nav class="navbar navbar-dash nav-div" style="margin-bottom:0px; ">
+      <div class="container-fluid">
+      
+          <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#mainnavbar">
+                  <span class="icon-bar" style="background-color:rgb(103,58,183)"></span>
+                  <span class="icon-bar" style="background-color:rgb(103,58,183)"></span>
+                  <span class="icon-bar" style="background-color:rgb(103,58,183)"></span>
+              </button>
+              <a href="#" class="navbar-brand" style="color: rgb(103,58,183);">Assignment Dashboard</a>
+              <button class="btn btn-sm navbar-btn" id="menu-toggle" style="background: rgb(255,255,255);">
+                <span class="glyphicon glyphicon-menu-hamburger" style="color: rgb(103,58,183); font-size:18px"></span>
+              </button>
+          </div>
+          <!--  Comment  -->
+          <!--  Menu items  -->
+          <div class="collapse navbar-collapse btn-dash" id="mainnavbar"> <!-- to make this div collapsible for mobile views-->
+              <!--  Right aligned items  -->
+              <ul class="nav navbar-nav navbar-right" style="display: inline-block;">
+                <li style="margin-right:2px;"><button class="btn btn-nav-dash">Analytics</button></li>
+                <li style="margin-right:2px;"><button class="btn btn-nav-dash">Leader Board</button></li>
+                <li style="margin-right:2px;"><button class="btn btn-nav-dash">Log Out</button></li>
+              </ul>
+          </div>
+          <div>
+
+          </div>
+      </div>
+  </nav>
+  <div id="wrapper">
+      <!--  Side Bar  -->
+      <div id="sidebar-wrapper">
+          <ul class="sidebar-nav"> 
+
+              <li style="color: aliceblue;">Name:</li>
+              <li style="color: aliceblue;">Email Id:</li>
+              <li style="color: aliceblue;">Section:</li>
+              <li style="color: aliceblue;">Log Out</li>
+
+          </ul>
+      </div>
+
+      <!--  Main Content  -->	
+
+      <div id="page-content-wrapper">
+          <div class="container-fluid">
+              <div class="row">
+                  <div class="col-md-12">
+                   <div class="col-md-8 col-md-push-2" style="overflow: visible; z-index: 100px;" >
+                   	<p class = "Course" > Course / Problem</p>
+						<p class = "problem">Problem statement and details</p>
+
+						<div class="mdl-selectfield mdl-js-selectfield mdl-selectfield--floating-label" style="overflow: visible;">
+        <select class="mdl-selectfield__select" id="language" onchange="updatelang(this);">
+          <option value=""></option>
+          <option value="c_cpp" >C</option>
+							<option value="c_cpp">C++</option>
+							<option value="java">Java</option>
+							<option value="python">Python</option>
+        </select>
+        <label class="mdl-selectfield__label" for="language">Language</label>
+      </div>
+      <div class="mdl-selectfield mdl-js-selectfield mdl-selectfield--floating-label" style="overflow: visible; float: right; " >
+        <select class="mdl-selectfield__select" id="theme" onchange="updatetheme(this);">
+          <option value=""></option>
+							<option value="monokai">Monokai</option>
+							<option value="monokai">Twilight</option>
+							<option value="chrome">Chrome</option>
+							<option value="darkula">Darkula</option>
+        </select>
+        <label class="mdl-selectfield__label" for="theme">Theme</label>
+      </div>
+					</div>
+
+							<div id='time'   ></div>					
+							<script>
+var initialTime = Date.now();
+function checkTime(){
+  var timeDifference = Date.now() - initialTime;
+  var formatted = convertTime(timeDifference);
+  document.getElementById('time').innerHTML = '' + 'Time elasped ' + formatted ;
+}
+
+function convertTime(miliseconds) {
+  var totalSeconds = Math.floor(miliseconds/1000);
+  var minutes = Math.floor(totalSeconds/60);
+  var seconds = totalSeconds - minutes * 60;
+  return minutes + ':' + seconds;
+}
+window.setInterval(checkTime, 100);
+</script>
+
+<div class="col-md-8 col-md-push-2">
+<div id="editor" style="overflow: visible;height: 300px; margin-top: 10px;" >int main()
+{
+	return 0;
+}
+             
+        </div>
+    </div>
+    
+			<script  src = "https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.6/ace.js" type="text/javascript" charset="utf-8">
+			</script>
+			<script >
+
+							 var editor = ace.edit("editor");
+							 var language = "c_cpp";
+        editor.setTheme("ace/theme/monokai");
+        editor.session.getTextRange(editor.getSelectionRange());
+        editor.getSession().setTabSize(4);
+     /*
+        var activity = document.getElementById("theme");
+        activity.addEventListener("change",function()
+        {
+          console.log("fdkjgbkj");
+          if(activity.value == "chrome")
+          {
+          updatetheme();
+          }
+        });
+        function updatelang()
+        {
+           $("#editor").load("test.html #editor"); 
+
+        }
+        function updatetheme()
+        {
+
+          console.log("mohit.value");
+          editor.setTheme("ace/theme/" + mohit.value);
+          $("#editor").load("test.html #editor");
+
+        }
+*/
+       
+
+        editor.getSession().setMode("ace/mode/"+language);
+						</script>		
+					<div class="col-md-8 col-md-push-2" style="margin-top: 10px;">
+						<p class = "output" >Output area/Log messages</p>
+					</div>
+					<div class = "col-md-12">
+						<div class="col-md-8 col-md-push-2" style="text-align:center;" ><br>
+							<div class="collapse navbar-collapse btn-dash" id="mainnavbar">
+							<br>
+							 <button class="btn btn-nav-dash">Submit</button></li>
+                <button class="btn btn-nav-dash">Reset</button></li>
+                <button class="btn btn-nav-dash">Save</button></li>
+                <!--
+							<button type="submit" style="background: lightgreen">Submit</button>
+							<button type = "submit" style = "background: red" >Reset</button>
+							<button type = "submit" style = "background: lightblue" >Save</button>
+						-->
+						</div>
+					</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+  <script>
+      $("#menu-toggle").click(function(e){
+         e.preventDefault();
+          $("#wrapper").toggleClass("menuDisplayed");
+      });
+      </script>
+</head>
+</html>

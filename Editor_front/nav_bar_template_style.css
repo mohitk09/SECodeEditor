@@ -1,0 +1,104 @@
+@font-face { font-family: opensans; src: url('OpenSans-Semibold.ttf'); }
+*{
+  overflow: hidden;
+}
+
+.btn-nav-dash{
+  border: 1px solid rgb(103,58,183);
+  background-color: rgb(255,255,255);
+  color: rgb(103,58,183);
+  margin-bottom: 2px;
+  margin-left: 2px;
+}
+.btn-nav-dash:hover{
+  color: #fff;
+  background-color: rgb(103,58,183);
+}
+
+.btn-solve{
+  border: 1px solid #009688;
+  background-color: rgb(255,255,255);
+  color: #009688;
+}
+.btn-solve:hover{
+  color: #fff;
+  background-color: #009688;
+
+}
+
+.navbar-dash{
+  background-color: rgb(255,255,255);
+}
+.btn-dash{
+  margin-top: 8px;
+}
+
+#sidebar-wrapper{
+    z-index: 1;
+    position: absolute;
+    width: 0px;
+    height: 200%;
+    overflow-y:hidden;
+
+    background: #2c3e50;
+}
+
+#page-content-wrapper{
+    width: 100%;
+    position: absolute;
+    padding: 15px;
+}
+
+#wrapper.menuDisplayed #sidebar-wrapper{
+    width: 300px;
+}
+
+#wrapper.menuDisplayed #page-content-wrapper{
+    padding-left: 300px;
+}
+.sidebar-nav{
+    padding: 0;
+    list-style: none;
+}
+
+.sidebar-nav li{
+    text-indent: 20px;
+    line-height: 40px;
+}
+.sidebar-nav li a{
+    display: block;
+    text-decoration: none;
+    color: aliceblue;
+}
+.sidebar-nav li:hover{
+    background-color: #16a085;
+}
+.problem
+{
+display: block;
+font-size: 30px;
+margin: auto;   
+text-align: center;
+
+}
+.output
+{
+display: block;
+font-size:15px;
+margin: auto;   
+text-align: center;
+
+}
+
+#myDiv.fullscreen{
+    z-index: 9999; 
+    width: 100%; 
+    height: 100%; 
+    position: fixed; 
+    top: 0; 
+    left: 0; 
+ }
+.navbar>.container .navbar-brand, .navbar>.container-fluid .navbar-brand {
+  margin-left: 0;
+  float: right;
+}
