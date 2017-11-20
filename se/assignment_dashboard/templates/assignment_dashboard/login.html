@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+{% load material_form %}
+{% load staticfiles %}
+<html lang="en" style="height:100%;">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">  <!-- viewport="device screen"  width=device screen width scale =100% -->
+    <!-- Available on getbootstrap CND   -->
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+    <!-- Latest compiled and minified JavaScript -->
+      <script
+    src="https://code.jquery.com/jquery-3.2.1.js"
+    integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE="
+    crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="{% static 'css/login_style.css' %}" type="text/css">
+    {% include 'material/includes/material_css.html' %}
+    <script src="{% static 'material/js/jquery.js' %}"></script>
+    {% include 'material/includes/material_js.html' %}
+
+</head>
+<body>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12" style="text-align: center;">
+            <h1 style="color: #009382; width: 600px; display: block;  margin: auto; margin-top:80px; " >Assignment Portal</h1>
+            <div class="col-md-4 col-md-push-4 form-div " style="display:block; margin-top: 20px;">
+            <form action="{% url 'assignment_dashboard:index_login' %}" method="POST">
+                {% csrf_token %}
+                {% for m in messages %}
+                    <h6 class="text-danger">{{ m }}</h6>
+                {% endfor %}
+                {% form form=form %}{% endform %}
+                <button type="submit" name="submit" class="btn" style="display:block; margin:auto; float:right;">Login</button>
+            </form>
+                <!--<a href="" style="float:left; margin-top:20px;">Forgot Password?</a>-->
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

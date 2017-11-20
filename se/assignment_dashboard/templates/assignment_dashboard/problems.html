@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Problems</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">  <!-- viewport="device screen"  width=device screen width scale =100% -->
+    <!-- Available on getbootstrap CND   -->
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+    <!-- Latest compiled and minified JavaScript -->
+      <script
+    src="https://code.jquery.com/jquery-3.2.1.js"
+    integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE="
+    crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="{% static 'css/problem_f_style.css' %}" type="text/css">
+
+</head>
+<body style="background-color: rgb(245,248,250);">
+
+  <nav class="navbar navbar-dash nav-div" style="margin-bottom:0px; ">
+      <div class="container-fluid">
+      <style>
+          .navbar>.container .navbar-brand, .navbar>.container-fluid .navbar-brand {
+margin-left: 0;
+              float: right;
+}
+      </style>
+          <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#mainnavbar">
+                  <span class="icon-bar" style="background-color:rgb(103,58,183);"></span>
+                  <span class="icon-bar" style="background-color:rgb(103,58,183);"></span>
+                  <span class="icon-bar" style="background-color:rgb(103,58,183);"></span>
+              </button>
+              <a href="{{ '../../faculty/index.html' }}" class="navbar-brand" style="color: rgb(103,58,183);">Assignment Dashboard</a>
+              <button class="btn btn-sm navbar-btn" id="menu-toggle" style="background: rgb(255,255,255);">
+                <span class="glyphicon glyphicon-menu-hamburger" style="color: rgb(103,58,183); font-size:18px"></span>
+              </button>
+          </div>
+          <!--  Comment  -->
+          <!--  Menu items  -->
+          <div class="collapse navbar-collapse btn-dash" id="mainnavbar"> <!-- to make this div collapsible for mobile views-->
+              <!--  Right aligned items  -->
+              <ul class="nav navbar-nav navbar-right" style="display: inline-block;">
+                <li style="margin-right:2px;"><button class="btn btn-nav-dash">Analytics</button></li>
+                <li style="margin-right:2px;"><button class="btn btn-nav-dash">Leader Board</button></li>
+                <li style="margin-right:2px;"><button class="btn btn-nav-dash" onclick="location.href='/dashboard/logout.html'" >Log Out</button></li>
+              </ul>
+          </div>
+          <div>
+
+          </div>
+      </div>
+  </nav>
+
+
+
+  <div id="wrapper">
+
+      <!--  Side Bar  -->
+
+      <div id="sidebar-wrapper">
+          <ul class="sidebar-nav">
+
+              <li style="color: aliceblue;">Name: {{ faculty_data.Name }}</li>
+              <li style="color: aliceblue;">Email Id: {{ faculty_data.Email_id }}</li>
+              <li style="color: aliceblue;" onclick="location.href='/dashboard/faculty/problems/index.html'">Problems</li>
+              <li style="color: aliceblue;" onclick="location.href='/dashboard/logout.html'" >Log Out</li>
+
+          </ul>
+      </div>
+
+      <!--  Main Content  -->
+
+
+      <div id="page-content-wrapper">
+          <div class="container-fluid">
+              <div class="row">
+                  <div class="col-md-12">
+
+                    <div id="problems" class="card2">
+                      <h1 style="display: block; margin:auto; margin-left: 24px; margin-top: 24px; color: rgb(103,58,183); overflow: hidden; margin-bottom:10px;">Problems</h1>
+
+                        {% if problems_added|length == 0 %}
+                        <h5>You have not added any problems yet</h5>
+                        {% endif %}
+                        {% for problem in problems_added %}
+
+                        <div id="problem" class="card1 card2 container-fluid" onclick="details(this);" style="display:block; margin:auto; margin-bottom:10px; overflow:visible; min-height: 100px;" >
+                            <h1 style="color:#00BCD4; display:block; overflow: visible; vertical-align: middle; margin:auto; margin-left:24px; margin-top:10px;">{{ problem.Name }}</h1>
+                            <h5 style="color:#00BCD4; display:inline-block; overflow: visible; vertical-align: middle; margin:auto; margin-left:24px; margin-top:10px; ">Start Date: {{ problem.startDate }}</h5>
+                            <h5 style="color:#00BCD4; display:inline-block; overflow: visible; vertical-align: middle; margin:auto; margin-left:24px; float:right; margin-top:10px;">End Date: {{ problem.endDate }}</h5><br>
+                            <h5 style="color:#00BCD4; display:inline-block; overflow: visible; vertical-align: middle; margin:auto; margin-left:24px; margin-top:10px;">Start Time: {{ problem.startTime }}</h5>
+                            <h5 style="color:#00BCD4; display:inline-block; overflow: visible; vertical-align: middle; margin:auto; margin-left:24px; float:right; margin-top:10px;">End Time: {{ problem.endTime }}</h5><br>
+                            <h5 style="color:#00BCD4; display:inline-block; overflow: visible; vertical-align: middle; margin:auto; margin-left:24px; margin-top:10px;">Section: {{ problem.Section }}</h5>
+                            <h5 style="color:#00BCD4; display:inline-block; overflow: visible; vertical-align: middle; margin:auto; margin-left:24px; float:right; margin-top:10px;">Course: {{ problem.Course }}</h5><br>
+                            <h5 style="color:#00BCD4; display:inline-block; overflow: visible; vertical-align: middle; margin:auto; margin-left:24px; margin-top:10px;">Max Attempts: {{ problem.maxAttempts }}</h5>
+                            <h5 style="color:#00BCD4; display:inline-block; overflow: visible; vertical-align: middle; margin:auto; margin-left:24px; margin-top:10px; float: right;">Max Marks: {{ problem.maxMarks }}</h5><br>
+                            <h5 style="color:#00BCD4; display:inline-block; overflow: visible; vertical-align: middle; margin:auto; margin-left:24px; margin-top:10px;">Faculty: {{ problem.Faculty }}</h5>
+                            <h5 style="color:#00BCD4; display:inline-block; overflow: visible; vertical-align: middle; margin:auto; margin-left:24px; float:right; margin-top:10px;">Test case file:{{ problem.test_case_file }}</h5><br>
+                            <div style="border: 1px solid #00BCD4; border-radius:2px; margin-left:19px;  margin-top:10px; margin-bottom:10px; padding: 5px;" ><h5 style="color:#00BCD4; display:inline-block; overflow: visible; vertical-align: middle; margin:auto;">Problem Statement:<br> {{ problem.ProblemStatement }} </h5></div>
+                        </div>
+                        {% endfor %}
+                        <div style="padding-top:-10px; :margin:10px; text-align:center;">
+                        <button class="pager">First</button>
+                        <button class="pager">Prev</button>
+                        <button class="pager">1</button>
+                        <button class="pager">2</button>
+                        <button class="pager">Next</button>
+                        <button class="pager">Last</button>
+                    </div>
+                    </div>
+
+
+
+                  </div>
+
+              </div>
+          </div>
+      </div>
+  </div>
+
+  <script>
+
+      $("#menu-toggle").click(function(e){
+         e.preventDefault();
+          $("#wrapper").toggleClass("menuDisplayed");
+      });
+      </script>
+
+</body>
+</html>

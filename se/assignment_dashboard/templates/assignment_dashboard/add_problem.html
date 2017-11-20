@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Problem</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">  <!-- viewport="device screen"  width=device screen width scale =100% -->
+    <!-- Available on getbootstrap CND   -->
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+    <!-- Latest compiled and minified JavaScript -->
+      <script
+    src="https://code.jquery.com/jquery-3.2.1.js"
+    integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE="
+    crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script src="//storage.googleapis.com/code.getmdl.io/1.0.6/material.min.js"></script>
+    <script src="https://cdn.rawgit.com/kybarg/mdl-selectfield/mdl-menu-implementation/mdl-selectfield.min.js"></script>
+
+    <link rel="stylesheet" href="{% static 'css/problem_style.css' %}" type="text/css">
+    <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons" type="text/css">
+    <link rel="stylesheet" href="https://storage.googleapis.com/code.getmdl.io/1.0.6/material.indigo-pink.min.css" type="text/css">
+    <link rel="stylesheet" href="https://cdn.rawgit.com/kybarg/mdl-selectfield/mdl-menu-implementation/mdl-selectfield.min.css" type="text/css">
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Roboto:300,400,500,700" type="text/css">
+
+    <link href='https://fonts.googleapis.com/css?family=Roboto:400,700,100,300,700italic,500,500italic,400italic,300italic,100italic' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
+</head>
+<body style="background-color: rgb(245,248,250);">
+
+  <nav class="navbar navbar-dash nav-div" style="margin-bottom:0px; ">
+      <div class="container-fluid">
+      <style>
+          .navbar>.container .navbar-brand, .navbar>.container-fluid .navbar-brand {
+margin-left: 0;
+              float: right;
+}
+      </style>
+          <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#mainnavbar">
+                  <span class="icon-bar" style="background-color:rgb(103,58,183);"></span>
+                  <span class="icon-bar" style="background-color:rgb(103,58,183);"></span>
+                  <span class="icon-bar" style="background-color:rgb(103,58,183);"></span>
+              </button>
+              <a href="{{ '../../faculty/index.html' }}" class="navbar-brand" style="color: rgb(103,58,183);">Assignment Dashboard</a>
+              <button class="btn btn-sm navbar-btn" id="menu-toggle" style="background: rgb(255,255,255);">
+                <span class="glyphicon glyphicon-menu-hamburger" style="color: rgb(103,58,183); font-size:18px"></span>
+              </button>
+          </div>
+          <!--  Comment  -->
+          <!--  Menu items  -->
+          <div class="collapse navbar-collapse btn-dash" id="mainnavbar"> <!-- to make this div collapsible for mobile views-->
+              <!--  Right aligned items  -->
+              <ul class="nav navbar-nav navbar-right" style="display: inline-block;">
+                <li style="margin-right:2px;"><button class="btn btn-nav-dash">Analytics</button></li>
+                <li style="margin-right:2px;"><button class="btn btn-nav-dash">Leader Board</button></li>
+                <li style="margin-right:2px;"><button class="btn btn-nav-dash" onclick="location.href='/dashboard/logout.html'" >Log Out</button></li>
+              </ul>
+          </div>
+          <div>
+
+          </div>
+      </div>
+  </nav>
+
+
+
+  <div id="wrapper">
+
+      <!--  Side Bar  -->
+
+      <div id="sidebar-wrapper">
+          <ul class="sidebar-nav">
+
+              <li style="color: aliceblue;">Name: {{ faculty_data.Name }}</li>
+              <li style="color: aliceblue;">Email Id: {{ faculty_data.Email_id }}</li>
+              <li style="color: aliceblue;" onclick="location.href='/dashboard/faculty/problems/index.html'">Problems</li>
+              <li style="color: aliceblue;" onclick="location.href='/dashboard/logout.html'" >Log Out</li>
+
+          </ul>
+      </div>
+
+      <!--  Main Content  -->
+
+      <div id="page-content-wrapper">
+          <div class="container-fluid">
+              <div class="row">
+                  <div class="col-md-12">
+
+                      <div class="add card2" style="overflow: auto; display: block; margin:auto;">
+                          <button style="background: #fff; border:0px; color: rgb(103,58,183); display:inline;" onclick="location.href='/dashboard/faculty/index.html'" ><img src="{% static 'css/back.png' %}" /></button>
+                      <h1 style="overflow: visible; display: inline-block; margin:auto; margin-left: 24px; margin-top: 24px; color: rgb(103,58,183);">Add Problem</h1>
+                          <form action="{% url 'assignment_dashboard:index_problem' %}" method="post" enctype="multipart/form-data" >
+                              {% csrf_token %}
+                              {{ form.errors }}
+                              {{ form.non_field_errors }}
+
+                              {% if messages %}
+                              {% for m in messages %}
+                              {% if "Please" in m|stringformat:"s" %}
+                              <div class="alert alert-danger"><a style="overflow: visible;" href="#" class="close" data-dismiss="alert" aria-label="close">&times</a>{{ m }}</div>
+                              {% endif %}
+                              {% endfor %}
+                              {% endif %}
+
+
+
+
+                          <main class="mdl-layout__content" style="display:block;">
+                              <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" style="width:100%;">
+                                  <input class="mdl-textfield__input" id="problem_name" name="problem_name"/>
+                                  <label class="mdl-textfield__label" for="problem_name"  >Problem Name</label>
+                              </div>
+                          </main>
+                          <div class="mdl-selectfield mdl-js-selectfield mdl-selectfield--floating-label" style="overflow: visible; margin-left:24px;">
+                              <select class="mdl-selectfield__select" id="course" name="course">
+                                <option value=""></option>
+                                  {% for course in courses %}
+                                <option value="{{ course }}">{{ course }}</option>
+                                  {% endfor %}
+                              </select>
+                                <label class="mdl-selectfield__label" for="course">Course</label>
+                          </div>
+                          <div class="mdl-selectfield mdl-js-selectfield mdl-selectfield--floating-label" style="overflow: visible; margin-left:24px; margin-right: 24px; float: right;">
+                              <select class="mdl-selectfield__select" id="section" name="section">
+                                <option value=""></option>
+                                  {% for section in sections %}
+                                <option value="{{ section }}">{{ section}}</option>
+                                  {% endfor %}
+                              </select>
+                                <label class="mdl-selectfield__label" for="section">Section</label>
+                          </div>
+                          <br>
+                          <main class="mdl-layout__content" >
+                              <div class="mdl-textfield">
+                                  <label for="start_date" style="overflow: visible; font-size:12px; color:#3F51B5" >Start Date</label>
+                                  <input class="mdl-textfield__input date_time_input" id="start_date" name="start_date" type="date" />
+                                  {% for m in messages %}
+                                  {% if m|stringformat:"s" == "Start date should be greater than current date." %}
+                                  <h6 class="text-danger">{{ m }}</h6>
+                                  {% endif %}
+                                  {% endfor %}
+                              </div>
+                          </main>
+                          <main class="mdl-layout__content" style="float: right;">
+                              <div class="mdl-textfield">
+                                  <label for="end_date" style="overflow: visible; font-size:12px; color:#3F51B5">End Date</label>
+                                  <input class="mdl-textfield__input date_time_input" id="end_date" name="end_date" type="date"/>
+                                  {% for m in messages %}
+                                  {% if m|stringformat:"s" == "End date should be greater than current and start date."%}
+                                  <h6 class="text-danger">{{ m }}</h6>
+                                  {% endif %}
+                                  {% endfor %}
+                              </div>
+                          </main>
+                              <br>
+                          <main class="mdl-layout__content" >
+                              <div class="mdl-textfield">
+                                  <label for="start_time" style="overflow: visible; font-size:12px; color:#3F51B5" >Start Time</label>
+                                  <input class="mdl-textfield__input date_time_input" id="start_time" name="start_time" type="time" />
+                              </div>
+                          </main>
+                          <main class="mdl-layout__content" style="float: right;">
+                              <div class="mdl-textfield">
+                                  <label for="end_time" style="overflow: visible; font-size:12px; color:#3F51B5">End Time</label>
+                                  <input class="mdl-textfield__input date_time_input" id="end_time" name="end_time" type="time"/>
+                                  {% for m in messages %}
+                                  {% if m|stringformat:"s" == "End time should be greater than start time."%}
+                                  <h6 class="text-danger">{{ m }}</h6>
+                                  {% endif %}
+                                  {% endfor %}
+                              </div>
+                          </main>
+                          <main class="mdl-layout__content" >
+                              <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                                  <input class="mdl-textfield__input" id="max_marks" name="max_marks"/>
+                                  <label class="mdl-textfield__label" for="max_marks">Max Marks</label>
+                              </div>
+                          </main>
+                          <main class="mdl-layout__content" style="float: right;">
+                              <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" >
+                                  <input class="mdl-textfield__input" id="max_attempts" name="max_attempts"/>
+                                  <label class="mdl-textfield__label" for="max_attempts">Max Attempts</label>
+                              </div>
+                          </main>
+                          <br>
+                          <div style="margin:24px; overflow: visible;" id="checkboxes-div" >
+                              Languages:
+                                <label style="display: inline;" class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="c_lang">
+                                    <input type="checkbox" id="c_lang" class="mdl-checkbox__input" name="c_lang" value="checked">
+                                    <span class="mdl-checkbox__label">C</span>
+                                </label>
+
+                                <label style="display: inline" class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="cpp_lang">
+                                    <input type="checkbox" id="cpp_lang" class="mdl-checkbox__input" name="cpp_lang" value="checked">
+                                    <span class="mdl-checkbox__label">C++</span>
+                                </label>
+                              <label style="display: inline" class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="java_lang">
+                                    <input type="checkbox" id="java_lang" class="mdl-checkbox__input" name="java_lang" value="checked">
+                                    <span class="mdl-checkbox__label">Java</span>
+                                </label>
+                              <label style="display: inline" class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="python_lang">
+                                    <input type="checkbox" id="python_lang" class="mdl-checkbox__input" name="python_lang" value="checked">
+                                    <span class="mdl-checkbox__label">Python</span>
+                                </label>
+                            </div>
+                          <div style="margin-left: 24px; width:95%" class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell mdl-cell--bottom" id="value-div">
+                                <textarea style="width:100%;" class="mdl-textfield__input" rows="20" id="problem_statement" name="problem_statement" ></textarea>
+                                <label class="mdl-textfield__label" for="problem_statement">Problem Statement</label>
+                            </div>
+                                  <div style="overflow: visible; display:inline-block; margin-left: 24px; margin-bottom:20px;">
+                                      <label for="uploadFile">Test Case File:</label>
+                                    <input placeholder="No File Chosen" type="text" id="uploadFile" style="border-top:0px; border-left:0px; border-right:0px; border-bottom: 1px solid #9E9E9E; width:300px;" readonly/>
+                                      <input type="file" id="test_case_file" name="test_case_file"  style="visibility: hidden; display: inline-block; float: right;"/>
+                                  <button onclick="document.getElementById('test_case_file').click(); return false;" id="file_button"></button>
+                                  </div>
+                          <div class="mdl-card__actions mdl-card--border intro-card-actions">
+
+                            <button style="float: right;" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" id="assign" type="submit">
+                                Assign
+                            </button>
+                            <button style="float: right;" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" id="save_draft">
+                                Save Draft
+                            </button>
+
+                        </div>
+
+                          </form>
+
+                    </div>
+
+                  </div>
+              </div>
+          </div>
+      </div>
+
+  </div>
+
+  <script>
+
+  document.getElementById("test_case_file").onchange = function () {
+    document.getElementById("uploadFile").value = this.files[0].name;
+};
+
+
+      $("#menu-toggle").click(function(e){
+         e.preventDefault();
+          $("#wrapper").toggleClass("menuDisplayed");
+      });
+
+      function resizeElementHeight()
+      {
+        document.getElementById("nsub").style.height = {{ problems|length }}*100 + 60 +"px";
+        document.getElementById("sub").style.height = {{ problems|length }}*100 + 60 +"px";
+      }
+      function details(element)
+      {
+        if(element.offsetHeight==83)
+        {
+          element.childNodes[3].style.display = "block";
+        }
+        else{
+          element.childNodes[3].style.display = "none";
+        }
+
+      }
+
+      var course = document.getElementById("course");
+      course.addEventListener("change", function() {
+    if(course.value == "addNew")
+    {
+        addActivityItem();
+    }
+});
+
+      // resizeElementHeight();
+      </script>
+
+
+<!-- for writing python code
+{% for album in allalbum %}
+//do something
+{% endfor %}
+-->
+
+</body>
+</html>
